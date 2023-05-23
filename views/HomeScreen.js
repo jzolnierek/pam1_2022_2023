@@ -1,9 +1,14 @@
-import { StyleSheet, Text, TouchableOpacity, View } from 'react-native'
+import { Text } from 'react-native'
 import React from 'react'
 import { auth } from '../firebase'
 import { signOut } from 'firebase/auth'
 import { useNavigation } from '@react-navigation/core'
-import { LinearGradient } from 'expo-linear-gradient'
+import AppBackground from '../components/AppBackground'
+import ClickableTextField from '../components/ClickableTextField'
+import Logo2 from '../components/Logo2'
+import Tile from '../components/Tile'
+import HorizontalScrollView from '../components/HorizontalScrollView'
+import TileLong from '../components/TileLong'
 
 const HomeScreen = () => {
 
@@ -18,39 +23,17 @@ const HomeScreen = () => {
     }
 
     return (
-        <LinearGradient
-            colors={['#FCFF69', '#D9D9D9', 'transparent']}
-            style={styles.background}
-            start={{ x: 1, y: 0 }}
-            end={{ x: 0, y: 1 }}
-        >
-            <View style={styles.container}>
+        <AppBackground>
+            <Logo2 />
+            {/* <Tile topText='List name' midText='Home' botText='01-01-0000' variant='tile1' /> */}
+            <HorizontalScrollView />
+            <TileLong topText='List name' midText='Home' botText='01-01-0000' variant='tile1' />
 
-                <Text>Email: {auth.currentUser?.email}</Text>
-                <TouchableOpacity
-                    onPress={handleLogout}
-                >
-                    <Text>Log out</Text>
-                </TouchableOpacity>
-            </View>
-        </LinearGradient>
+                {/* <Text style={{marginTop: '40%'}}>Email: {auth.currentUser?.email}</Text> */}
+                {/* <ClickableTextField text='Log out' onPress={handleLogout} /> */}
+
+        </AppBackground>
     )
 }
 
 export default HomeScreen
-
-const styles = StyleSheet.create({
-    container: {
-        flex: 1,
-        alignItems: 'center',
-        justifyContent: 'center',
-    },
-    background: {
-        position: 'absolute',
-        color: '#D9D9D9',
-        left: 0,
-        right: 0,
-        top: 0,
-        height: '100%',
-    }
-})
