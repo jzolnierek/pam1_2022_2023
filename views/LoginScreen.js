@@ -8,6 +8,8 @@ import Logo from '../components/Logo'
 import ClickableTextField from '../components/ClickableTextField'
 import BasicButton from '../components/BasicButton'
 import AppView from './AppView'
+import { ref, onValue, push, update, remove } from 'firebase/database'
+import { db } from '../firebase.js';
 
 
 const LoginScreen = () => {
@@ -20,6 +22,10 @@ const LoginScreen = () => {
     useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, user => {
             if (user) {
+                onValue(ref(db, '/products'), (snapshot) => {
+                    const data = snapshot.val();
+                    console.log(data)
+                })
                 navigation.replace("AppView");
             }
         })

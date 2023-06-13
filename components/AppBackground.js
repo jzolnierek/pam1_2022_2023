@@ -10,7 +10,7 @@ const AppBackground = (props) => {
         start={{ x: 0.8, y: 0 }}
         end={{ x: 0, y: 1 }}
     >
-        <KeyboardAwareScrollView>
+        <KeyboardAwareScrollView keyboardShouldPersistTaps='always'>
             <View style={styles.container(props.topMargin)}>
                 {props.children}
             </View>
@@ -29,10 +29,12 @@ const styles = StyleSheet.create({
         top: 0,
         height: '100%',
     },
-    container: (topMargin) => {return {
-        flex: 1,
-        justifyContent: 'flex-start',
-        alignItems: 'center',
-        marginTop: topMargin,
-    }},
+    container: (topMargin) => {
+        return {
+            flex: 1,
+            justifyContent: 'flex-start',
+            alignItems: 'center',
+            marginTop: topMargin,
+        }
+    },
 })

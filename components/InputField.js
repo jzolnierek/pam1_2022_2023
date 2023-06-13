@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState, useEffect } from 'react'
 import { StyleSheet, TextInput } from 'react-native'
 
 const InputField = (props) => {

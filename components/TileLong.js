@@ -1,19 +1,19 @@
-import React from "react"
-import { StyleSheet, Image, Text, View, ImageBackground } from "react-native"
+import React, { useState } from "react"
+import { StyleSheet, Image, Text, View, ImageBackground, TouchableOpacity } from "react-native"
 
 const TileLong = (props) => {
-  return (
-    <View style={styles[props.variant]}>
-        <View style={styles.left}>
-            <Text style={[styles.text, styles.textTop1, styles.textLeft1]}>{props.name}</Text>
-            <Text style={[styles.text, styles.textBot1, styles.textLeft1]}>{props.shop}</Text>
-        </View>
-        <View style={styles.right}>
-            <Text style={[styles.text, styles.textTop1, styles.textRight1]}>{props.price}</Text>
-            <Text style={[styles.text, styles.textBot1, styles.textRight1]}>{props.amount}</Text>
-        </View>
-    </View>
-  )
+    return (
+        <TouchableOpacity onPress={props.onClick} style={styles[props.variant]} onLongPress={props.longPress} delayLongPress={1000}>
+            <View style={styles.left}>
+                <Text style={[styles.text, styles.textTop1, styles.textLeft1]}>{props.name}</Text>
+                <Text style={[styles.text, styles.textBot1, styles.textLeft1]}>{props.shop}</Text>
+            </View>
+            <View style={styles.right}>
+                <Text style={[styles.text, styles.textTop1, styles.textRight1]}>{props.price}</Text>
+                <Text style={[styles.text, styles.textBot1, styles.textRight1]}>{props.amount}</Text>
+            </View>
+        </TouchableOpacity>
+    )
 }
 
 export default TileLong
@@ -21,6 +21,15 @@ export default TileLong
 const styles = StyleSheet.create({
     tile1: {
         backgroundColor: '#35902670',
+        width: '90%',
+        height: 90,
+        borderRadius: 20,
+        margin: 10,
+        display: 'flex',
+        flexDirection: 'row',
+    },
+    tile2: {
+        backgroundColor: '#79000099',
         width: '90%',
         height: 90,
         borderRadius: 20,

@@ -18,24 +18,25 @@ const ProductScreen = () => {
 
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
-    const [amount, setAmount] = useState('');
+    const [store, setStore] = useState('');
+    const [category, setCategory] = useState('');
 
 
     const navigation = useNavigation();
 
     const addProduct = () => {
-        push(ref(db, '/lists/idl1/products'), {
+        push(ref(db, '/products'), {
             // 'idp2': {
-                'name': name,
-                'price': price,
-                'amount': amount
+            'name': name,
+            'price': price,
+            'store': store,
+            'category': category,
             // }
         });
     }
 
     return (
         <AppBackground>
-            <TileLong name='abcd' shop='qwer' price='22,99' amount='5' variant='tile1' />
             <Image style={styles.productImage} source={require('../assets/icon.png')} />
             <InputField
                 placeholder="Name"
@@ -48,9 +49,14 @@ const ProductScreen = () => {
                 onChangeText={text => setPrice(text)}
             />
             <InputField
-                placeholder="Amount"
-                value={amount}
-                onChangeText={text => setAmount(text)}
+                placeholder="Store"
+                value={store}
+                onChangeText={text => setStore(text)}
+            />
+            <InputField
+                placeholder="Category"
+                value={category}
+                onChangeText={text => setCategory(text)}
             />
 
             <BasicButton text='Add' onPress={addProduct} />
@@ -64,6 +70,7 @@ export default ProductScreen
 const styles = StyleSheet.create({
     productImage: {
         maxWidth: '60%',
-        maxHeight: '20%'
+        maxHeight: '20%',
+        marginTop: '5%'
     }
 });
