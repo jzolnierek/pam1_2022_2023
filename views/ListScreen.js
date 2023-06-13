@@ -1,4 +1,4 @@
-import { Text, Modal, View, StyleSheet, Pressable } from 'react-native'
+import { Text, Modal, View, StyleSheet, Pressable, ToastAndroid } from 'react-native'
 import React, { useEffect, useState, useRef } from 'react'
 import { auth } from '../firebase'
 import { signOut } from 'firebase/auth'
@@ -24,6 +24,8 @@ const ListScreen = ({ navigation, route }) => {
     // const navigation = useNavigation();
     const [allProducts, setAllProducts] = useState([]);
     const [modalVisible, setModalVisible] = useState(false);
+    const [modalVisible2, setModalVisible2] = useState(false);
+    const [editProduct, setEditProduct] = useState()
 
     const [productId, setProductId] = useState('');
     const [productName, setProductName] = useState('');
@@ -33,6 +35,11 @@ const ListScreen = ({ navigation, route }) => {
     const [productCategory, setProductCategory] = useState('');
     const [productPriority, setProductPriority] = useState('');
     const [productComment, setProductComment] = useState('');
+
+    const [listCost, setListCost] = useState(0)
+
+
+
     useEffect(() => {
         const listsQuery = query(ref(db, 'lists/'), orderByKey(), equalTo(route.params.lista[0]))
 
@@ -87,11 +94,51 @@ const ListScreen = ({ navigation, route }) => {
             'done': false,
             'products': {}
         });
+        setProductName('')
+        setProductPrice('')
+        setProductAmount('')
+        setProductShop('')
+        setProductCategory('')
+        setProductPriority('')
+        ToastAndroid.show('Product added to list.', ToastAndroid.SHORT);
     }
+
+    const updateList = (id) => {
+        const updates = {};
+        updates['lists/' + route.params.lista[0] + "/products/" + id + "/name"] = productName;
+        updates['lists/' + route.params.lista[0] + "/products/" + id + "/price"] = productPrice;
+        updates['lists/' + route.params.lista[0] + "/products/" + id + "/amount"] = productAmount;
+        updates['lists/' + route.params.lista[0] + "/products/" + id + "/shop"] = productShop;
+        updates['lists/' + route.params.lista[0] + "/products/" + id + "/category"] = productCategory;
+        updates['lists/' + route.params.lista[0] + "/products/" + id + "/priority"] = productPriority;
+        update(ref(db), updates);
+        ToastAndroid.show('Product updated.', ToastAndroid.SHORT);
+        setProductName('')
+        setProductPrice('')
+        setProductAmount('')
+        setProductShop('')
+        setProductCategory('')
+        setProductPriority('')
+    }
+
+    const calculateCost = () => {
+        let bufor = 0
+        if (products.length != 0)
+            for (let product of products) {
+                bufor += product.amount * product.price
+            }
+        setListCost(bufor.toFixed(2));
+    }
+
+    useEffect(() => {
+        calculateCost();
+    }, [products]);
 
     return (
         <AppBackground>
             <Logo2 />
+            <Text>Total cost: {listCost}</Text>
+            {/* Add product modal */}
             <Modal
                 animationType="slide"
                 transparent={true}
@@ -177,11 +224,72 @@ const ListScreen = ({ navigation, route }) => {
                 </View>
             </Modal>
 
+            {/* Edit product modal */}
+            <Modal
+                animationType="slide"
+                transparent={true}
+                visible={modalVisible2}
+                onRequestClose={() => {
+                    setModalVisible2(!modalVisible2);
+                }}>
+                <View style={styles.centeredView}>
+                    <View style={styles.modalView}>
+                        <Text style={styles.modalText}>Edit product</Text>
+
+                        <InputField
+                            placeholder="Name"
+                            value={productName}
+                            onChangeText={text => setProductName(text)}
+                        />
+                        <InputField
+                            placeholder="Price"
+                            value={productPrice.toString()}
+                            onChangeText={text => setProductPrice(text)}
+                        />
+                        <InputField
+                            placeholder="Amount"
+                            value={productAmount}
+                            onChangeText={text => setProductAmount(text)}
+                        />
+                        <InputField
+                            placeholder="Shop"
+                            value={productShop}
+                            onChangeText={text => setProductShop(text)}
+                        />
+                        <InputField
+                            placeholder="Category"
+                            value={productCategory}
+                            onChangeText={text => setProductCategory(text)}
+                        />
+                        <InputField
+                            placeholder="Priority"
+                            value={productPriority}
+                            onChangeText={text => setProductPriority(text)}
+                        />
+
+                        <BasicButton text='Save' onPress={() => {
+                            updateList(productId);
+                            setModalVisible2(!modalVisible2);
+                        }} />
+                    </View>
+                </View>
+            </Modal>
+
             {products.length > 0 ? products.map((product) => (
                 <TileLong name={product.name} price={product.price} shop={product.shop} amount={product.amount} variant={product.done ? 'tile2' : 'tile1'} longPress={() => {
                     const updates = {};
                     updates['lists/' + route.params.lista[0] + "/products/" + product.localId + "/done"] = true;
                     update(ref(db), updates);
+                }} onClick={() => {
+                    // setEditProduct(product)
+                    setProductId(product.localId)
+                    setProductName(product.name)
+                    setProductPrice(product.price)
+                    setProductAmount(product.amount)
+                    setProductShop(product.shop)
+                    setProductCategory(product.category)
+                    setProductPriority(product.priority)
+                    setModalVisible2(true)
                 }} />
             )) : <></>}
             <FAB

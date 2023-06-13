@@ -5,7 +5,7 @@ import { signOut } from 'firebase/auth'
 import { useNavigation } from '@react-navigation/core'
 import AppBackground from '../components/AppBackground'
 import ClickableTextField from '../components/ClickableTextField'
-import Logo2 from '../components/Logo2'
+import LogoProducts from '../components/LogoProducts'
 import Tile from '../components/Tile'
 import HorizontalScrollView from '../components/HorizontalScrollView'
 import TileLong from '../components/TileLong'
@@ -36,7 +36,7 @@ const ProductsListScreen = () => {
 
     return (
         <AppBackground>
-            <Logo2 />
+            <LogoProducts />
             {products.map((product) => (
                 <TileLong name={product[1].name} price={product[1].price} variant='tile1' />
             ))}

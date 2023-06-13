@@ -1,13 +1,13 @@
 import React from "react"
-import { StyleSheet, Image, Text, View, ImageBackground } from "react-native"
+import { StyleSheet, Image, Text, View, ImageBackground, TouchableOpacity } from "react-native"
 
 const Tile = (props) => {
   return (
-    <View style={styles[props.variant]}>
-      <Text style={styles.text1}>{props.topText}</Text>
-      <Text style={styles.text1}>{props.midText}</Text>
-      <Text style={styles.text1}>{props.botText}</Text>
-    </View>
+    <TouchableOpacity onPress={props.onClick} style={styles[props.variant]}>
+        <Text style={styles.text1}>{props.topText}</Text>
+        <Text style={styles.text1}>{props.midText}</Text>
+        <Text style={styles.text1}>{props.botText}</Text>
+    </TouchableOpacity>
   )
 }
 

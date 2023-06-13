@@ -4,6 +4,7 @@ import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import ProductScreen from './ProductScreen';
 import ProductsListScreen from './ProductsListScreen';
 import ListsScreen from './ListsScreen';
+import ProfileScreen from './ProfileScreen';
 
 const Tab = createMaterialBottomTabNavigator();
 
@@ -11,8 +12,8 @@ function AppView() {
     return (
         <Tab.Navigator
             initialRouteName="Home"
-            activeColor="white"
-            inactiveColor="white"
+            activeColor="yellow"
+            inactiveColor="yellow"
             barStyle={{ backgroundColor: '#359026' }}
         >
             <Tab.Screen
@@ -23,7 +24,7 @@ function AppView() {
                         <Icon
                             name="home-outline"
                             size={28}
-                            color="#FFFFFF"
+                            color="yellow"
                         />
                     )
                 }}
@@ -34,9 +35,9 @@ function AppView() {
                 options={{
                     tabBarIcon: ({ color }) => (
                         <Icon
-                            name="home-outline"
+                            name="format-list-bulleted"
                             size={28}
-                            color="#FFFFFF"
+                            color="yellow"
                         />
                     )
                 }}
@@ -47,9 +48,9 @@ function AppView() {
                 options={{
                     tabBarIcon: ({ color }) => (
                         <Icon
-                            name="home-outline"
+                            name="plus-circle-outline"
                             size={28}
-                            color="#FFFFFF"
+                            color="yellow"
                         />
                     )
                 }}
@@ -60,22 +61,22 @@ function AppView() {
                 options={{
                     tabBarIcon: ({ color }) => (
                         <Icon
-                            name="home-outline"
+                            name="barcode"
                             size={28}
-                            color="#FFFFFF"
+                            color="yellow"
                         />
                     )
                 }}
             />
             <Tab.Screen
                 name="Profile"
-                component={HomeScreen}
+                component={ProfileScreen}
                 options={{
                     tabBarIcon: ({ color }) => (
                         <Icon
-                            name="home-outline"
+                            name="account"
                             size={28}
-                            color="#FFFFFF"
+                            color="yellow"
                         />
                     )
                 }}

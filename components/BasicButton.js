@@ -19,10 +19,12 @@ const styles = StyleSheet.create({
         alignItems: 'center',
         width: '60%',
         marginTop: 10,
+        height: 30
     },
     buttonText: {
-        fontFamily: 'Pacifico',
+        // fontFamily: 'Pacifico',
         fontSize: 20,
+        fontFamily: 'serif',
         color: 'white',
     },
 })

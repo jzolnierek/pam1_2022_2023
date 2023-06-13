@@ -14,7 +14,8 @@ export default ClickableTextField;
 const styles = StyleSheet.create({
     clickableText: {
         marginTop: 5,
-        fontFamily: 'Pacifico',
+        // fontFamily: 'Pacifico',
+        fontFamily: 'serif',
         color: '#7F9D7B',
     }
 });

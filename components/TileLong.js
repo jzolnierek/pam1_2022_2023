@@ -53,6 +53,7 @@ const styles = StyleSheet.create({
         marginLeft: 5,
         marginRight: 5,
         color: '#FFFFFF',
+        fontFamily: 'serif'
     },
     textTop1: {
         fontWeight: '600',

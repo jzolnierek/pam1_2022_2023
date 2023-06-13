@@ -1,14 +1,20 @@
 import React from 'react'
 import { StyleSheet, Image, View, Text, FlatList } from 'react-native'
 import Tile from '../components/Tile'
+import { useNavigation } from '@react-navigation/core'
 
-DATA = [1, 2, 3, 4]
+const HorizontalScrollView = (props) => {
+    const navigation = useNavigation();
 
-const HorizontalScrollView = () => {
-    return <View style={{flex: 1}}>
+    // const lists = props.data.map((lista) => {
+    //     lista[1].localId = lista[0];
+    //     return lista[1]
+    // })
+
+    return <View style={{flex: 1, margin: 15}}>
         <FlatList
-            data={DATA}
-            renderItem={({item}) => <Tile topText='111' midText='222' botText='333' variant='tile1' />}
+            data={props.data}
+            renderItem={({item}) => <Tile topText={item[1].name} midText={item[1].date} botText={item[1].done ? 'Done' : 'In progress'} variant='tile1' onClick={() => console.log(item)} />} //navigation.navigate('ListScreen', { item })
             // keyExtractor={item => item.id}
             horizontal
         />

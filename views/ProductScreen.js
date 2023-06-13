@@ -1,11 +1,11 @@
-import { Text, Image, StyleSheet } from 'react-native'
+import { Text, Image, StyleSheet, ToastAndroid } from 'react-native'
 import React, { useState, useEffect } from 'react'
 import { auth } from '../firebase'
 import { signOut } from 'firebase/auth'
 import { useNavigation } from '@react-navigation/core'
 import AppBackground from '../components/AppBackground'
 import ClickableTextField from '../components/ClickableTextField'
-import Logo2 from '../components/Logo2'
+import LogoAddProduct from '../components/LogoAddProduct'
 import Tile from '../components/Tile'
 import HorizontalScrollView from '../components/HorizontalScrollView'
 import TileLong from '../components/TileLong'
@@ -13,12 +13,13 @@ import InputField from '../components/InputField'
 import { db } from '../firebase.js';
 import BasicButton from '../components/BasicButton'
 import { ref, onValue, push, update, remove } from 'firebase/database';
+import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const ProductScreen = () => {
 
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
-    const [store, setStore] = useState('');
+    const [shop, setShop] = useState('');
     const [category, setCategory] = useState('');
 
 
@@ -29,15 +30,28 @@ const ProductScreen = () => {
             // 'idp2': {
             'name': name,
             'price': price,
-            'store': store,
+            'shop': shop,
             'category': category,
             // }
         });
+        setName('')
+        setPrice('')
+        setShop('')
+        setCategory('')
+        ToastAndroid.show('Product added.', ToastAndroid.SHORT);
     }
 
     return (
         <AppBackground>
-            <Image style={styles.productImage} source={require('../assets/icon.png')} />
+            {/* <Image style={styles.productImage} source={require('../assets/icon.png')} /> */}
+            <LogoAddProduct />
+            {/* <Text style={styles.text}>Add product</Text> */}
+            <Icon
+                name="camera"
+                size={80}
+                color="#359026"
+                style={styles.productImage}
+            />
             <InputField
                 placeholder="Name"
                 value={name}
@@ -49,9 +63,9 @@ const ProductScreen = () => {
                 onChangeText={text => setPrice(text)}
             />
             <InputField
-                placeholder="Store"
-                value={store}
-                onChangeText={text => setStore(text)}
+                placeholder="Shop"
+                value={shop}
+                onChangeText={text => setShop(text)}
             />
             <InputField
                 placeholder="Category"
@@ -72,5 +86,11 @@ const styles = StyleSheet.create({
         maxWidth: '60%',
         maxHeight: '20%',
         marginTop: '5%'
+    },
+    text: {
+        marginTop: '30%',
+        fontFamily: 'serif',
+        fontSize: 32,
+        color: '#359026'
     }
 });

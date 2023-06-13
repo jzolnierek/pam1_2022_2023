@@ -1,15 +1,15 @@
-import { Text, Modal, View, StyleSheet, Pressable } from 'react-native'
+import { Text, Modal, View, StyleSheet, Pressable, ToastAndroid } from 'react-native'
 import React, { useEffect, useState } from 'react'
 import { auth } from '../firebase'
 import { signOut } from 'firebase/auth'
 import { useNavigation } from '@react-navigation/core'
 import AppBackground from '../components/AppBackground'
 import ClickableTextField from '../components/ClickableTextField'
-import Logo2 from '../components/Logo2'
+import LogoLists from '../components/LogoLists'
 import Tile from '../components/Tile'
 import HorizontalScrollView from '../components/HorizontalScrollView'
 import TileLong from '../components/TileLong'
-import { ref, onValue, push, update, remove, orderByChild, query, get, equalTo } from 'firebase/database';
+import { ref, onValue, push, update, remove, orderByChild, query, get, equalTo, route } from 'firebase/database';
 import { db } from '../firebase.js';
 import { FAB } from '@rneui/themed';
 import InputField from '../components/InputField';
@@ -32,6 +32,7 @@ const ListsScreen = () => {
             'done': false,
             'products': {}
         });
+        ToastAndroid.show('List created.', ToastAndroid.SHORT);
     }
 
     useEffect(() => {
@@ -52,7 +53,7 @@ const ListsScreen = () => {
 
     return (
         <AppBackground>
-            <Logo2 />
+            <LogoLists />
 
             <Modal
                 animationType="slide"
@@ -85,7 +86,11 @@ const ListsScreen = () => {
             </Modal>
 
             {lists.map((lista) => (
-                <TileLong name={lista[1].name} price='Home' shop={lista[1].date} variant='tile1' onClick={() => navigation.navigate('ListScreen', { lista })} />
+                <TileLong name={lista[1].name} price='Home' shop={lista[1].date} onClick={() => {console.log("LISTS LISTA", lista); navigation.navigate('ListScreen', { lista })} } variant={lista[1].done ? 'tile2' : 'tile1'} longPress={() => {
+                    const updates = {};
+                    updates['lists/' + lista[0] + "/done"] = true;
+                    update(ref(db), updates);
+                }}/>
             ))}
             <FAB
                 icon={{ name: 'add', color: 'white' }}
