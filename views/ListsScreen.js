@@ -86,7 +86,7 @@ const ListsScreen = () => {
             </Modal>
 
             {lists.map((lista) => (
-                <TileLong name={lista[1].name} price='Home' shop={lista[1].date} onClick={() => {console.log("LISTS LISTA", lista); navigation.navigate('ListScreen', { lista })} } variant={lista[1].done ? 'tile2' : 'tile1'} longPress={() => {
+                <TileLong name={lista[1].name} price='Home' shop={lista[1].date} onClick={() => {navigation.navigate('ListScreen', { lista })} } variant={lista[1].done ? 'tile2' : 'tile1'} longPress={() => {
                     const updates = {};
                     updates['lists/' + lista[0] + "/done"] = true;
                     update(ref(db), updates);

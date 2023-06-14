@@ -6,11 +6,6 @@ import { useNavigation } from '@react-navigation/core'
 const HorizontalScrollView = (props) => {
     const navigation = useNavigation();
 
-    // const lists = props.data.map((lista) => {
-    //     lista[1].localId = lista[0];
-    //     return lista[1]
-    // })
-
     return <View style={{flex: 1, margin: 15}}>
         <FlatList
             data={props.data}

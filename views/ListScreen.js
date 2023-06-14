@@ -47,14 +47,14 @@ const ListScreen = ({ navigation, route }) => {
             if (snapshot.exists()) {
                 const data = snapshot.val();
                 const listsArray = Object.entries(data);
-                const listsArray2 = Object.entries(listsArray[0][1].products)
+                if (listsArray[0][1].products !== undefined) {
+                    const listsArray2 = Object.entries(listsArray[0][1].products)
 
-                const listsArray3 = listsArray2.map((product) => { product[1].localId = product[0]; return product[1] })
-
-                setProducts(listsArray3)
-
-
-                console.log("PRODUKTY", products)
+                    const listsArray3 = listsArray2.map((product) => { product[1].localId = product[0]; return product[1] })
+    
+                    setProducts(listsArray3)
+                }
+                
                 setLists(listsArray);
             } else {
                 setLists([]);

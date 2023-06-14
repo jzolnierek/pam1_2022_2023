@@ -37,10 +37,8 @@ const HomeScreen = () => {
     return (
         <AppBackground>
             <Logo2 />
-            {/* <Tile topText='List name' midText='Home' botText='01-01-0000' variant='tile1' /> */}
             <View style={styles.container}><Text style={styles.recently}>Recently added</Text></View>
             <HorizontalScrollView data={lists} />
-            {/* <TileLong name='List name' price='Home' shop='01-01-0000' variant='tile1' /> */}
 
 
 

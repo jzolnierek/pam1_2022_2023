@@ -43,9 +43,7 @@ const ProductScreen = () => {
 
     return (
         <AppBackground>
-            {/* <Image style={styles.productImage} source={require('../assets/icon.png')} /> */}
             <LogoAddProduct />
-            {/* <Text style={styles.text}>Add product</Text> */}
             <Icon
                 name="camera"
                 size={80}

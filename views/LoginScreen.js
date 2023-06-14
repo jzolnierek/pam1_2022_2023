@@ -24,7 +24,6 @@ const LoginScreen = () => {
             if (user) {
                 onValue(ref(db, '/products'), (snapshot) => {
                     const data = snapshot.val();
-                    console.log(data)
                 })
                 navigation.replace("AppView");
             }
@@ -36,7 +35,6 @@ const LoginScreen = () => {
         signInWithEmailAndPassword(auth, email, password)
             .then(userCredentials => {
                 const user = userCredentials.user;
-                console.log(user.email);
             })
             .catch(error => alert(error.message))
     }
